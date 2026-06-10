@@ -3,13 +3,6 @@
 Marketing + support landing page for **dotRead**, a native macOS Markdown reader.
 Static single-page site, hosted with **GitHub Pages**.
 
-## ⚠️ Which repo is which
-
-| Repo | Purpose |
-|------|---------|
-| **[A55ANE100/dotRead](https://github.com/A55ANE100/dotRead)** | **This repo** — the **website only** (source for the App Store Support / Marketing / Privacy URLs). |
-| **[A55ANE100/Markview](https://github.com/A55ANE100/Markview)** | The **app's source code** (the SwiftUI app, MarkdownKit, Quick Look extensions). |
-
 ## Contents
 
 - `index.html` — the whole site (inline CSS + a tiny scroll-reveal script, no build step)
