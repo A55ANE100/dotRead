@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>dotRead — Read Markdown, beautifully, on your Mac</title>
+<meta name="description" content="dotRead is a fast, native macOS app that renders Markdown the way it was meant to look — with a document outline, live-preview editing, syntax-highlighted code, and Quick Look. No accounts, no network.">
+<meta property="og:title" content="dotRead — Read Markdown, beautifully">
+<meta property="og:description" content="A native macOS Markdown reader & light editor. Open any .md and read it rendered.">
+<meta property="og:type" content="website">
+<style>
+  :root {
+    --accent: #5a67f5;
+    --accent-2: #6f4ff0;
+    --bg: #ffffff;
+    --bg-soft: #f5f6fa;
+    --card: #ffffff;
+    --text: #1c1c20;
+    --text-dim: #6b6b75;
+    --border: rgba(0,0,0,0.08);
+    --shadow: 0 18px 50px rgba(40,40,90,0.12);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f0f14;
+      --bg-soft: #16161d;
+      --card: #1a1a22;
+      --text: #f2f2f7;
+      --text-dim: #9a9aa5;
+      --border: rgba(255,255,255,0.10);
+      --shadow: 0 18px 50px rgba(0,0,0,0.5);
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+  /* Nav */
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 19px; }
+  .brand img { width: 30px; height: 30px; border-radius: 7px; }
+  nav .links a { color: var(--text-dim); font-weight: 500; margin-left: 22px; font-size: 15px; }
+
+  /* Hero */
+  .hero { text-align: center; padding: 56px 0 40px; }
+  .hero img.icon { width: 132px; height: 132px; border-radius: 28px; box-shadow: var(--shadow); }
+  .hero h1 { font-size: clamp(38px, 6vw, 60px); letter-spacing: -0.02em; margin: 26px 0 10px; }
+  .hero .tag { font-size: clamp(18px, 2.6vw, 23px); color: var(--text-dim); max-width: 620px; margin: 0 auto 30px; }
+  .cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; align-items: center; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 13px 22px; border-radius: 13px; font-weight: 600; font-size: 16px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff;
+    box-shadow: 0 8px 22px rgba(90,103,245,0.35); transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); text-decoration: none; box-shadow: 0 12px 28px rgba(90,103,245,0.45); }
+  .btn.secondary {
+    background: var(--bg-soft); color: var(--text); box-shadow: none; border: 1px solid var(--border);
+  }
+  .btn.secondary:hover { box-shadow: none; }
+  .note { font-size: 13px; color: var(--text-dim); margin-top: 14px; }
+
+  /* Shot */
+  .shot { margin: 46px auto 0; max-width: 940px; }
+  .shot img { width: 100%; height: auto; border-radius: 16px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+
+  /* Sections */
+  section { padding: 64px 0; }
+  section h2 { font-size: clamp(26px, 4vw, 36px); text-align: center; letter-spacing: -0.02em; margin-bottom: 12px; }
+  section .sub { text-align: center; color: var(--text-dim); max-width: 560px; margin: 0 auto 44px; }
+
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 760px){ .grid { grid-template-columns: 1fr; } }
+  .feature {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 26px;
+  }
+  .feature .ico { font-size: 26px; margin-bottom: 12px; }
+  .feature h3 { font-size: 18px; margin-bottom: 6px; }
+  .feature p { color: var(--text-dim); font-size: 15px; }
+
+  .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media (max-width: 760px){ .gallery { grid-template-columns: 1fr; } }
+  .gallery img { width: 100%; border-radius: 14px; border: 1px solid var(--border); box-shadow: var(--shadow); }
+
+  .soft { background: var(--bg-soft); }
+  .prose { max-width: 720px; margin: 0 auto; }
+  .prose h2 { text-align: left; }
+  .prose p { color: var(--text-dim); margin-bottom: 14px; }
+  .prose strong { color: var(--text); }
+
+  footer { border-top: 1px solid var(--border); padding: 40px 0; color: var(--text-dim); font-size: 14px; }
+  footer .row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  footer a { color: var(--text-dim); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav>
+    <div class="brand"><img src="assets/icon.png" alt="dotRead icon"> dotRead</div>
+    <div class="links">
+      <a href="#features">Features</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#support">Support</a>
+    </div>
+  </nav>
+</div>
+
+<header class="hero wrap">
+  <img class="icon" src="assets/icon.png" alt="dotRead app icon">
+  <h1>Read Markdown, beautifully.</h1>
+  <p class="tag">macOS has no built-in way to <em>read</em> a Markdown file. dotRead fixes that — double-click any <code>.md</code> and see it rendered, in a fast, native app that feels like it shipped with macOS.</p>
+  <div class="cta">
+    <!-- TODO: replace # with your Mac App Store URL once live: https://apps.apple.com/app/idXXXXXXXXX -->
+    <a class="btn" href="#" id="appstore">Download on the Mac App Store</a>
+    <!-- TODO: point at your source repo (update if you rename it) -->
+    <a class="btn secondary" href="https://github.com/A55ANE100/Markview">View source on GitHub</a>
+  </div>
+  <p class="note">Coming soon to the Mac App Store · Requires macOS 14 or later</p>
+
+  <div class="shot">
+    <img src="assets/shot-light.png" alt="dotRead showing a rendered Markdown document with an outline sidebar">
+  </div>
+</header>
+
+<section id="features" class="wrap">
+  <h2>Built for reading first</h2>
+  <p class="sub">Everything a great Markdown reader should do — and nothing it shouldn't.</p>
+  <div class="grid">
+    <div class="feature"><div class="ico">📖</div><h3>Beautiful rendering</h3><p>GitHub-Flavored Markdown with system typography, a comfortable reading column, and full light &amp; dark mode.</p></div>
+    <div class="feature"><div class="ico">🧭</div><h3>Document outline</h3><p>A sidebar of your headings — click any one to jump straight to that section.</p></div>
+    <div class="feature"><div class="ico">✍️</div><h3>Live editing</h3><p>Flip to Edit for a side-by-side live preview, with native undo and autosave.</p></div>
+    <div class="feature"><div class="ico">🌈</div><h3>Syntax highlighting</h3><p>Fenced code blocks highlighted across dozens of languages, in light and dark.</p></div>
+    <div class="feature"><div class="ico">👁️</div><h3>Quick Look</h3><p>Press Space in Finder to preview <code>.md</code> files, with rendered thumbnails too.</p></div>
+    <div class="feature"><div class="ico">🔒</div><h3>Private by design</h3><p>No accounts, no analytics, no network. Your documents never leave your Mac.</p></div>
+  </div>
+</section>
+
+<section class="soft">
+  <div class="wrap">
+    <h2>See it in action</h2>
+    <p class="sub">Perfect for READMEs, notes, specs, and AI-generated documents.</p>
+    <div class="gallery">
+      <img src="assets/shot-dark.png" alt="dotRead in dark mode">
+      <img src="assets/shot-outline.png" alt="dotRead outline navigation">
+    </div>
+  </div>
+</section>
+
+<section id="privacy" class="wrap">
+  <div class="prose">
+    <h2>Privacy Policy</h2>
+    <p><strong>dotRead does not collect any data.</strong> It has no accounts, no analytics, no tracking, and makes no network connections.</p>
+    <p>The app only reads and writes the Markdown files you explicitly open or create. Those files stay on your Mac (and in any iCloud/Drive folders you keep them in) — they are never sent anywhere by dotRead.</p>
+    <p>Because dotRead collects nothing, there is nothing to share, sell, or delete. If this policy ever changes, it will be updated on this page.</p>
+    <p style="font-size:13px;">Last updated: June 2026</p>
+  </div>
+</section>
+
+<section id="support" class="soft">
+  <div class="wrap prose">
+    <h2>Support</h2>
+    <p>Need help or found a bug? The fastest way to reach us:</p>
+    <p>• <strong>Report an issue or ask a question:</strong> <a href="https://github.com/A55ANE100/Markview/issues">open a GitHub issue</a>.</p>
+    <!-- TODO: replace with the support email you want shown publicly, or remove this line -->
+    <p>• <strong>Email:</strong> <a href="mailto:support@example.com">support@example.com</a></p>
+    <p>We typically respond within a couple of days.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap row">
+    <div>© 2026 dotRead. Made for macOS.</div>
+    <div>
+      <a href="#privacy">Privacy</a> &nbsp;·&nbsp;
+      <a href="#support">Support</a> &nbsp;·&nbsp;
+      <a href="https://github.com/A55ANE100/Markview">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
