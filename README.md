@@ -1,30 +1,17 @@
-# dotRead — website
+# dotRead
 
-Marketing + support landing page for **dotRead**, a native macOS Markdown reader.
-Static single-page site, hosted with **GitHub Pages**.
+dotRead is a fast, native macOS app that renders Markdown the way it was meant to
+look. macOS has no built-in way to *read* a `.md` file — double-click one and you
+just get raw text. dotRead fixes that: open any Markdown document and see it
+rendered, in an app that feels like it shipped with macOS.
 
-## Contents
+- Beautiful GitHub-Flavored Markdown rendering, in light & dark
+- Document outline sidebar — jump to any heading
+- Live side-by-side editing with native undo and autosave
+- Multi-language syntax-highlighted code blocks
+- Quick Look preview and Finder thumbnails for `.md` files
+- Private by design: no accounts, no analytics, no network
 
-- `index.html` — the whole site (inline CSS + a tiny scroll-reveal script, no build step)
-- `assets/` — app icon + screenshots
+**Website:** https://a55ane100.github.io/dotRead/
 
-## Publish with GitHub Pages
-
-1. Push this folder to `main` (this repo).
-2. Repo **Settings → Pages** → Source: **Deploy from a branch** → Branch: **main** / **/(root)** → Save.
-3. Live within a minute at **`https://a55ane100.github.io/dotRead/`**.
-
-Use that URL for the App Store Connect **Support URL**, **Marketing URL**, and
-**Privacy Policy URL** (the page's Privacy section satisfies all three).
-
-## Before launch — fill these placeholders in `index.html`
-
-- `id="appstore"` link → your Mac App Store URL (`https://apps.apple.com/app/idXXXXXXXXX`)
-- Swap the text App Store button for Apple's official badge once live
-  (see Apple's marketing/identity guidelines)
-
-## Design notes
-
-Restrained, accessible craft: SVG icons (no emoji), 200–300ms transitions, a
-scroll-reveal that's **disabled under `prefers-reduced-motion`**, visible
-`:focus-visible` states, and a single brand accent matched to the app icon.
+*Coming soon to the Mac App Store · Requires macOS 14 or later*
